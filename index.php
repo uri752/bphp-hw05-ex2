@@ -28,12 +28,14 @@ function printWorkDay(int $year, int $month, int $quantityMonths = 1): void {
         $curDate = date('d', $d);
         $curDay = date('D', $d);
         
-        if ($curDay === "Sat" || $curDay === "Sun") {
+        // Доработка - выполнить условие: "Причём если рабочий день выпадает на выходные, то переносим его на понедельник, и потом опять два выходных, один рабочий и т. д."
+        $workDay = ($counter === 1); // определим рабочий ли это должен быть день 
+        if ( $workDay && ($curDay === "Sat" || $curDay === "Sun") ) {
             echo "\033[34m$curDate \033[0m"; //синий - субботу или воскресенье
             continue;        
         }
 
-        $workDay = ($counter === 1); // рабочий день подсветим красным, 2 выходных дня - зеленым
+        // рабочий день подсветим красным, 2 выходных дня - зеленым
         if ($workDay) {
             echo "\033[31m$curDate \033[0m"; //красный
         } else {
